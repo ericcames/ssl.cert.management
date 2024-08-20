@@ -39,7 +39,7 @@
   changed_when: false
   ansible.builtin.shell: ls -d /root/ansible-automation-platform-setup-bundle-*
 
-- name: Ensure the containerized inventory file is configured to install the Controller
+- name: Ensure the containerized inventory file is configured to renew the ssl cert
   tags:
     - container
   ansible.builtin.template:
@@ -50,7 +50,7 @@
     mode: "0644"
     backup: true
 
-- name: Ensure the legacy inventory file is configured to install the Controller
+- name: Ensure the legacy inventory file is configured to renew the ssl cert
   tags:
     - legacy
   become: true
@@ -74,7 +74,7 @@
     mode: '0644'
     decrypt: false
 
-- name: Copy vault into place for non-containerized install
+- name: Copy vault into place
   tags:
     - legacy
   become: true
