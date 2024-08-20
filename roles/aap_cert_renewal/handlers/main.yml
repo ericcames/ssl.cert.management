@@ -9,6 +9,7 @@
     group: ansible-svc
     mode: '0600'
     decrypt: false
+    remote_src: true
 
 - name: Copy containerized fullchain
   become: true
@@ -20,6 +21,7 @@
     group: ansible-svc
     mode: '0644'
     decrypt: false
+    remote_src: true
 
 - name: Install new ssl certificate into containerized aap
   args:
