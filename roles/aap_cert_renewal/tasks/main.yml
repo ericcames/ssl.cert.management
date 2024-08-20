@@ -96,6 +96,13 @@
   ansible.builtin.stat:
     path: /etc/letsencrypt/live/{{ aap_cert_renewal_controller_url }}/fullchain.pem
 
+- name: Get the ansible_date_time for our next task
+  tags:
+    - always
+  ansible.builtin.setup:
+    filter:
+      - 'ansible_date_time.epoch'
+
 - name: Renew ssl cert for containerized aap
   tags:
     - container
