@@ -1,0 +1,29 @@
+---
+- name: Copy containerized privkey
+  become: true
+  become_user: root
+  ansible.builtin.copy:
+    src: "/etc/letsencrypt/live/{{ aap_cert_renewal_controller_url }}/privkey.pem"
+    dest: "/home/ansible-svc/.sslcerts/{{ aap_cert_renewal_controller_url }}/privkey.pem"
+    owner: ansible-svc
+    group: ansible-svc
+    mode: '0600'
+    decrypt: false
+
+- name: Copy containerized fullchain
+  become: true
+  become_user: root
+  ansible.builtin.copy:
+    src: "/etc/letsencrypt/live/{{ aap_cert_renewal_controller_url }}/fullchain.pem"
+    dest: "/home/ansible-svc/.sslcerts/{{ aap_cert_renewal_controller_url }}/fullchain.pem"
+    owner: ansible-svc
+    group: ansible-svc
+    mode: '0644'
+    decrypt: false
+
+- name: Install new ssl certificate into containerized aap
+  args:
+    chdir: "{{ aap_bundle_dir.stdout }}"
+  changed_when: false
+  ansible.builtin.command:
+    cmd: ansible-playbook -i inventory ansible.containerized_installer.install -e@ames_vault.yml
