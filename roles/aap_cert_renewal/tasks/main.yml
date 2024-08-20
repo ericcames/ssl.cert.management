@@ -116,4 +116,4 @@
     - Copy containerized fullchain
     - Install new ssl certificate into containerized aap
   ansible.builtin.command:
-    cmd: /usr/bin/certbot renew --cert-name aap.kona.services
+    cmd: /usr/bin/certbot renew --cert-name {{ aap_cert_renewal_controller_url }}
