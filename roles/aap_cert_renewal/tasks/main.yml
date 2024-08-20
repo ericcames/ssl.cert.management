@@ -103,6 +103,9 @@
     filter:
       - 'ansible_date_time'
 
+- debug:
+    var: mtimes
+
 - name: Renew ssl cert for containerized aap
   tags:
     - container
