@@ -101,7 +101,7 @@
     - always
   ansible.builtin.setup:
     filter:
-      - 'ansible_date_time.epoch'
+      - 'ansible_date_time'
 
 - name: Renew ssl cert for containerized aap
   tags:
