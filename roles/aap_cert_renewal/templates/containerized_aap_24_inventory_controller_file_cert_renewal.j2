@@ -71,11 +71,11 @@ controller_pg_host={{  aap_cert_renewal_controller_url }}
 # -------------------------
 # To use the postinstall feature you need to set these variables
 controller_postinstall=false
-controller_license_file=/home/ansible-svc/.manifest/
-controller_postinstall_dir=/home/ansible-svc/git-repos
+# controller_license_file=/home/ansible-svc/.manifest/
+# controller_postinstall_dir=/home/ansible-svc/git-repos
 # When using config-as-code in a git repository
-controller_postinstall_repo_url={{ controller_postinstall_repo_url }}
-controller_postinstall_repo_ref=main
+# controller_postinstall_repo_url=
+# controller_postinstall_repo_ref=main
 
 # To use custom TLS certificate/key you need to set these variables
 controller_tls_cert=/home/ansible-svc/.sslcerts/{{ aap_cert_renewal_controller_url }}/fullchain.pem
