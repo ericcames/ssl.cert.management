@@ -4,4 +4,6 @@ Automated SSL Cert Management
 Roles
 ---------
 
-aap_cert_renewal <br>
+| Role Name        | Description |
+| --------         | ---------   |
+| aap_cert_renewal | Currently works to update ssl certs in containerized AAP |
