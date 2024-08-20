@@ -104,6 +104,8 @@
       - 'ansible_date_time'
 
 - name: foo
+  tags:
+    - always
   debug:
     var: mtimes
 
