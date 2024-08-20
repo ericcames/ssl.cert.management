@@ -106,6 +106,7 @@
 - name: Renew ssl cert for containerized aap
   tags:
     - container
+  with_items: mtimes.results
   become: true
   become_user: root
   register: output
