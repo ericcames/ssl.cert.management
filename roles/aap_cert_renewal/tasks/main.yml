@@ -109,8 +109,8 @@
   become: true
   become_user: root
   register: output
-  when: ansible_date_time.epoch|float - mtimes.stat.mtime > 60*60*24*30
-  changed_when: ansible_date_time.epoch|float - mtimes.stat.mtime > 60*60*24*30
+  when: ansible_date_time.epoch|float - mtimes.stat.mtime > 60*60*24*60
+  changed_when: ansible_date_time.epoch|float - mtimes.stat.mtime > 60*60*24*60
   notify:
     - Copy containerized privkey
     - Copy containerized fullchain
