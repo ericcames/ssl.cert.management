@@ -1,4 +1,4 @@
-Automated SSL Cert Management using Ansible Automation Platform
+Automated SSL Cert Management
 =========
 
 # The Roles
