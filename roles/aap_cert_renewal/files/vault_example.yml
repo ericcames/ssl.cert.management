@@ -1,0 +1,19 @@
+# Red Hat Registry creds
+registry_username: USERNAMEGOESHERE
+registry_password: PASSWORDGOESHERE
+
+# Legacy creds
+admin_password: PASSWORDGOESHERE
+pg_password: PASSWORDGOESHERE
+
+# Containerized creds
+postgresql_admin_password: PASSWORDGOESHERE
+
+controller_admin_password: PASSWORDGOESHERE
+controller_pg_password: PASSWORDGOESHERE
+
+hub_admin_password: PASSWORDGOESHERE
+hub_pg_password: PASSWORDGOESHERE
+
+eda_admin_password: PASSWORDGOESHERE
+eda_pg_password: PASSWORDGOESHERE

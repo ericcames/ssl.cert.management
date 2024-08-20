@@ -1,0 +1,4 @@
+---
+aap_cert_renewal_vault_file_name: ames_vault.yml
+aap_cert_renewal_secret_file_name: ames_secret.yml
+aap_cert_renewal_controller_url: aap.kona.services
