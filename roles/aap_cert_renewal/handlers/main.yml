@@ -26,4 +26,4 @@
     chdir: "{{ aap_bundle_dir.stdout }}"
   changed_when: false
   ansible.builtin.command:
-    cmd: 'ansible-playbook -i inventory ansible.containerized_installer.install -e@ames_vault.yml'
+    cmd: 'ansible-playbook -i inventory ansible.containerized_installer.install -e@ames_vault.yml --vault-password-file ~/.ssh/secret'
