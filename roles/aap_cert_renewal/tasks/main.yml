@@ -67,7 +67,7 @@
   tags:
     - container
   ansible.builtin.copy:
-    src: files/{{ vault_file_name }}
+    src: files/{{ aap_cert_renewal_vault_file_name }}
     dest: "{{ aap_bundle_dir.stdout }}/{{ aap_cert_renewal_vault_file_name }}"
     owner: ansible-svc
     group: ansible-svc
@@ -80,7 +80,7 @@
   become: true
   become_user: root
   ansible.builtin.copy:
-    src: files/{{ vault_file_name }}
+    src: files/{{ aap_cert_renewal_vault_file_name }}
     dest: "{{ non_containerized_aap_bundle_dir.stdout }}/{{ aap_cert_renewal_vault_file_name }}"
     owner: root
     group: root
