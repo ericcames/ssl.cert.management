@@ -1,0 +1,6 @@
+---
+- name: Ensure we have a valid ssl cert
+  hosts: aap.kona.services
+
+  roles:
+    - role: aap_cert_renewal
