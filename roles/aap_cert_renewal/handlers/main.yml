@@ -8,7 +8,6 @@
     owner: ansible-svc
     group: ansible-svc
     mode: '0600'
-    decrypt: false
     remote_src: true
 
 - name: Copy containerized fullchain
@@ -20,7 +19,6 @@
     owner: ansible-svc
     group: ansible-svc
     mode: '0644'
-    decrypt: false
     remote_src: true
 
 - name: Install new ssl certificate into containerized aap
