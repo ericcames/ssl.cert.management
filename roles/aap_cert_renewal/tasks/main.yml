@@ -94,7 +94,7 @@
   become_user: root
   register: certificate_diff
   changed_when: false
-  ignore_errors: true
+  failed_when: certificate_diff.rc > 1
   ansible.builtin.command:
     cmd: /usr/bin/diff /etc/letsencrypt/live/{{ aap_cert_renewal_controller_url }}/fullchain.pem
          /home/ansible-svc/.sslcerts/{{ aap_cert_renewal_controller_url }}/fullchain.pem
