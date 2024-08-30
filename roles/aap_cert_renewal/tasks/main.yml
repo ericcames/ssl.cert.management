@@ -1,4 +1,16 @@
 ---
+- name: Check certificate
+  tags:
+    - legacy
+  become: true
+  become_user: root
+  register: certificate_diff
+  changed_when: false
+  failed_when: certificate_diff.rc > 1
+  ansible.builtin.command:
+    cmd: /usr/bin/diff /etc/letsencrypt/live/{{ aap_cert_renewal_controller_url }}/fullchain.pem
+         /home/ansible-svc/.sslcerts/{{ aap_cert_renewal_controller_url }}/fullchain.pem
+
 - name: Ensure our secret file is in place for non-containerized aap
   become: true
   become_user: root
@@ -86,24 +98,6 @@
     group: root
     mode: '0644'
     decrypt: false
-
-- name: Check certificate
-  tags:
-    - always
-  become: true
-  become_user: root
-  register: certificate_diff
-  changed_when: false
-  failed_when: certificate_diff.rc > 1
-  ansible.builtin.command:
-    cmd: /usr/bin/diff /etc/letsencrypt/live/{{ aap_cert_renewal_controller_url }}/fullchain.pem
-         /home/ansible-svc/.sslcerts/{{ aap_cert_renewal_controller_url }}/fullchain.pem
-
-- name: Print
-  tags:
-    - always
-  ansible.builtin.debug:
-    var: certificate_diff
 
 - name: Renew ssl cert for containerized aap
   tags:
