@@ -10,6 +10,13 @@
     mode: '0600'
     remote_src: true
 
+- name: Run restorecon on privkey
+  become: true
+  become_user: root
+  changed_when: false
+  ansible.builtin.command:
+    cmd: /sbin/restorecon -v /home/ansible-svc/.sslcerts/{{ aap_cert_renewal_controller_url }}/privkey.pem
+
 - name: Copy containerized fullchain
   become: true
   become_user: root
@@ -20,6 +27,13 @@
     group: ansible-svc
     mode: '0644'
     remote_src: true
+
+- name: Run restorecon on fullchain
+  become: true
+  become_user: root
+  changed_when: false
+  ansible.builtin.command:
+    cmd: /sbin/restorecon -v /home/ansible-svc/.sslcerts/{{ aap_cert_renewal_controller_url }}/fullchain.pem
 
 - name: Install new ssl certificate into containerized aap
   args:

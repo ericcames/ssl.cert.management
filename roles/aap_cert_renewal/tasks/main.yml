@@ -11,6 +11,15 @@
     cmd: /usr/bin/diff /etc/letsencrypt/live/{{ aap_cert_renewal_controller_url }}/fullchain.pem
          /home/ansible-svc/.sslcerts/{{ aap_cert_renewal_controller_url }}/fullchain.pem
 
+- name: End play if certificate is good
+  tags:
+    - legacy
+  become: true
+  become_user: root
+  ansible.builtin.meta: end_play
+  when:
+  - certificate_diff.rc == 0
+
 - name: Ensure our secret file is in place for non-containerized aap
   become: true
   become_user: root
