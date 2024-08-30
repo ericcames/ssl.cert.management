@@ -118,7 +118,9 @@
   changed_when: certificate_diff.rc == 1
   notify:
     - Copy containerized privkey
+    - Run restorecon on privkey
     - Copy containerized fullchain
+    - Run restorecon on fullchain
     - Install new ssl certificate into containerized aap
   ansible.builtin.command:
     cmd: /usr/bin/certbot renew --cert-name {{ aap_cert_renewal_controller_url }}
