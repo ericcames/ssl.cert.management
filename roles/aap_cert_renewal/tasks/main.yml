@@ -87,33 +87,32 @@
     mode: '0644'
     decrypt: false
 
-- name: Check certificate date
+- name: Ensure certificate match
   tags:
     - always
   become: true
   become_user: root
-  register: mtimes
-  ansible.builtin.stat:
-    path: /etc/letsencrypt/live/{{ aap_cert_renewal_controller_url }}/fullchain.pem
-
-- name: Get the ansible_date_time for our next task
-  tags:
-    - always
-  ansible.builtin.setup:
-    filter:
-      - 'ansible_date_time'
-
-- name: Renew ssl cert for containerized aap
-  tags:
-    - container
-  become: true
-  become_user: root
-  register: output
-  when: ansible_date_time.epoch|float - mtimes.stat.mtime > 60*60*24*60
-  changed_when: ansible_date_time.epoch|float - mtimes.stat.mtime > 60*60*24*60
-  notify:
-    - Copy containerized privkey
-    - Copy containerized fullchain
-    - Install new ssl certificate into containerized aap
+  register: certificate_diff
+  changed_when: false
   ansible.builtin.command:
-    cmd: /usr/bin/certbot renew --cert-name {{ aap_cert_renewal_controller_url }}
+    cmd: /usr/bin/diff /etc/letsencrypt/live/{{ aap_cert_renewal_controller_url }}/fullchain.pem
+         /home/ansible-svc/.sslcerts/{{ aap_cert_renewal_controller_url }}/fullchain.pem
+
+- name: Print
+  ansible.builtin.debug:
+    var: certificate_diff
+
+# - name: Renew ssl cert for containerized aap
+#   tags:
+#     - container
+#   become: true
+#   become_user: root
+#   register: output
+#   when: ansible_date_time.epoch|float - mtimes.stat.mtime > 60*60*24*60
+#   changed_when: ansible_date_time.epoch|float - mtimes.stat.mtime > 60*60*24*60
+#   notify:
+#     - Copy containerized privkey
+#     - Copy containerized fullchain
+#     - Install new ssl certificate into containerized aap
+#   ansible.builtin.command:
+#     cmd: /usr/bin/certbot renew --cert-name {{ aap_cert_renewal_controller_url }}
