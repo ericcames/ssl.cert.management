@@ -105,17 +105,17 @@
   ansible.builtin.debug:
     var: certificate_diff
 
-# - name: Renew ssl cert for containerized aap
-#   tags:
-#     - container
-#   become: true
-#   become_user: root
-#   register: output
-#   when: ansible_date_time.epoch|float - mtimes.stat.mtime > 60*60*24*60
-#   changed_when: ansible_date_time.epoch|float - mtimes.stat.mtime > 60*60*24*60
-#   notify:
-#     - Copy containerized privkey
-#     - Copy containerized fullchain
-#     - Install new ssl certificate into containerized aap
-#   ansible.builtin.command:
-#     cmd: /usr/bin/certbot renew --cert-name {{ aap_cert_renewal_controller_url }}
+- name: Renew ssl cert for containerized aap
+  tags:
+    - container
+  become: true
+  become_user: root
+  register: output
+  when: certificate_diff.rc == 1
+  changed_when: certificate_diff.rc == 1
+  notify:
+    - Copy containerized privkey
+    - Copy containerized fullchain
+    - Install new ssl certificate into containerized aap
+  ansible.builtin.command:
+    cmd: /usr/bin/certbot renew --cert-name {{ aap_cert_renewal_controller_url }}
