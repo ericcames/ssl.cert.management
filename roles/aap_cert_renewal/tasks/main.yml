@@ -1,7 +1,7 @@
 ---
 - name: Check certificate
   tags:
-    - legacy
+    - container
   become: true
   become_user: root
   register: certificate_diff
@@ -13,12 +13,12 @@
 
 - name: End play if certificate is good
   tags:
-    - legacy
+    - container
   become: true
   become_user: root
   ansible.builtin.meta: end_play
   when:
-  - certificate_diff.rc == 0
+    - certificate_diff.rc == 0
 
 - name: Ensure our secret file is in place for non-containerized aap
   become: true
